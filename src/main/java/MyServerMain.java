@@ -1,4 +1,5 @@
-import java.net.MalformedURLException;
+import java.io.IOException;
+import java.net.*;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -11,17 +12,30 @@ public class MyServerMain {
                 System.setSecurityManager(new SecurityManager());
             }
 
-            System.setProperty("java.rmi.server.codebase","file:target/classes");
-            System.out.println("Codebase: " + System.getProperty("java.rmi.server.codebase"));
+//            System.setProperty("java.rmi.server.codebase","file:target/classes");
+//            System.out.println("Codebase: " + System.getProperty("java.rmi.server.codebase"));
+
             MyServerImpl obj1 = new MyServerImpl();
 
             LocateRegistry.createRegistry(1099);
-            Naming.rebind("//localhost/ABC", obj1);
-            // zamienic localhost na adres ipv4 lokalny
+            Naming.rebind("papiezak", obj1);
 
             System.out.println("Serwer oczekuje ...");
         } catch (RemoteException | MalformedURLException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static String getMachineAddress() {
+        try (Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress("google.com", 80));
+            return socket.getLocalAddress().getHostAddress();
+        } catch (IOException ex) {
+            try {
+                return InetAddress.getLocalHost().getHostAddress();
+            } catch (UnknownHostException e) {
+                return "localhost";
+            }
         }
     }
 }
