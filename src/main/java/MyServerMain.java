@@ -12,13 +12,16 @@ public class MyServerMain {
                 System.setSecurityManager(new SecurityManager());
             }
 
+            String host = getMachineAddress();
+            System.setProperty("java.rmi.server.hostname", host);
+
 //            System.setProperty("java.rmi.server.codebase","file:target/classes");
 //            System.out.println("Codebase: " + System.getProperty("java.rmi.server.codebase"));
 
             MyServerImpl obj1 = new MyServerImpl();
 
             LocateRegistry.createRegistry(1099);
-            Naming.rebind("papiezak", obj1);
+            Naming.rebind("calculatorRegistry", obj1);
 
             System.out.println("Serwer oczekuje ...");
         } catch (RemoteException | MalformedURLException e) {
