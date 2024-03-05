@@ -21,19 +21,32 @@ public class MyServerImpl extends UnicastRemoteObject implements MyServerInt {
         Double firstNumber = Double.parseDouble(splitInput[0]);
         Double secondNumber = Double.parseDouble(splitInput[2]);
         String mathSymbol = splitInput[1];
+        
+        System.out.println();
+        System.out.println("Przyjęto równanie: " + input);
 
         switch (mathSymbol) {
             case "+":
-                return Double.toString(firstNumber + secondNumber);
+                Double result = firstNumber + secondNumber;
+                System.out.println("Wynik: " + result);
+                return Double.toString(result);
             case "-":
-                return Double.toString(firstNumber - secondNumber);
+                result = firstNumber - secondNumber;
+                System.out.println("Wynik: " + result);
+                return Double.toString(result);
             case "*":
+                result = firstNumber * secondNumber;
+                System.out.println("Wynik: " + result);
                 return Double.toString(firstNumber * secondNumber);
             case "/":
                 if (secondNumber == 0)
                     return "Nie można dzielić przez 0";
-                return Double.toString(firstNumber / secondNumber);
+                
+                result = firstNumber * secondNumber;
+                System.out.println("Wynik: " + result);
+                return Double.toString(result);
             default:
+                System.out.println("Podano nieobłużony znak");
                 return "Podano nieobłużony znak";
         }
     }

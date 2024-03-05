@@ -14,6 +14,7 @@ public class MyServerMain {
 
             String host = getMachineAddress();
             System.setProperty("java.rmi.server.hostname", host);
+            System.out.println(host);
 
 //            System.setProperty("java.rmi.server.codebase","file:target/classes");
 //            System.out.println("Codebase: " + System.getProperty("java.rmi.server.codebase"));
